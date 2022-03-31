@@ -16,6 +16,6 @@ module.exports.updateOne = (id, body) => {
     return userRepository.updateOne(id, body);
 }
 
-module.exports.deleteOne = id => {
+module.exports.deleteOne = (id) => {
     return userRepository.deleteOne(id);
 }
