@@ -3,11 +3,10 @@ const userService = require('../services/userService');
 module.exports.getAll = async (req, res) => {
     try {
         const users = await userService.getAll();
-
         return res.status(200).send(users);
     } catch (error) {
-        return res.status(500).send({
-            error: "Couldn't find any users"
+        return res.status(error.status).send({
+            error: error.message
         })
     }
 }
@@ -15,11 +14,10 @@ module.exports.getAll = async (req, res) => {
 module.exports.getOne = async (req, res) => {
     try {
         const user = await userService.getOne(req.params.id);
-
         return res.status(200).send(user);
     } catch (error) {
-        return res.status(500).send({
-            error: "Couldn't find any user"
+        return res.status(error.status).send({
+            error: error.message
         });
     }
 }
@@ -27,11 +25,10 @@ module.exports.getOne = async (req, res) => {
 module.exports.createOne = async (req, res) => {
     try {
         const user = await userService.createOne(req.body);
-
         return res.status(201).send(user);
     } catch (error) {
         return res.status(500).send({
-            error: "Couldn't create a user"
+            error: "Something went wrong"
         })
     }
 }
@@ -42,8 +39,8 @@ module.exports.updateOne = async (req, res) => {
 
         return res.status(201).send(user);
     } catch (error) {
-        return res.status(500).send({
-            error: "Couldn't update a user"
+        return res.status(error.status).send({
+            error: error.message
         })
     }
 }
@@ -56,8 +53,8 @@ module.exports.deleteOne = async (req, res) => {
             message: "User Deleted"
         })
     } catch (error) {
-        return res.status(500).send({
-            error: "Couldn't delete a user"
+        return res.status(error.status).send({
+            error: error.message
         })
     }
 }
