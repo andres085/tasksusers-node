@@ -16,7 +16,7 @@ module.exports.getOne = async (id) => {
     if (!task) {
         const error = new Error();
         error.status = 404;
-        error.message = "Task not found";
+        error.message = 'Task not found';
         throw error;
     }
     return task;
