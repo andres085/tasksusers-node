@@ -43,7 +43,7 @@ module.exports.updateOne = async (req, res) => {
             task
         });
     } catch (error) {
-        return res.status(error.message).send({
+        return res.status(error.status).send({
             error: error.message
         })
     }
@@ -56,7 +56,7 @@ module.exports.deleteOne = async (req, res) => {
             message: "Task deleted successfully"
         })
     } catch (error) {
-        return res.status(error.message).send({
+        return res.status(error.status).send({
             error: error.message
         })
     }
