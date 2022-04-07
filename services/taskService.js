@@ -1,12 +1,10 @@
+const AppError = require('../errors/AppError');
 const taskRepository = require('../repositories/taskRepository');
 
 module.exports.getAll = async () => {
     const tasks = await taskRepository.getAll();
     if (tasks.length <= 0) {
-        const error = new Error();
-        error.status = 404;
-        error.message = "Tasks not found";
-        throw error;
+        throw new AppError('Task not found', 404);
     }
     return tasks;
 }
@@ -14,10 +12,7 @@ module.exports.getAll = async () => {
 module.exports.getOne = async (id) => {
     const task = await taskRepository.getOne(id);
     if (!task) {
-        const error = new Error();
-        error.status = 404;
-        error.message = 'Task not found';
-        throw error;
+        throw new AppError('Task not found', 404);
     }
     return task;
 }
@@ -29,10 +24,7 @@ module.exports.createOne = (body) => {
 module.exports.updateOne = async(id, body) => {
     const task = await taskRepository.getOne(id);
     if (!task) {
-        const error = new Error();
-        error.status = 404;
-        error.message = "Task not found";
-        throw error;
+        throw new AppError('Task not found', 404);
     }
     return taskRepository.updateOne(id, body);
 }
@@ -40,10 +32,7 @@ module.exports.updateOne = async(id, body) => {
 module.exports.deleteOne = async (id) => {
     const task = await taskRepository.getOne(id);
     if (!task) {
-        const error = new Error();
-        error.status = 404;
-        error.message = "Task not found";
-        throw error;
+        throw new AppError('Task not found', 404);
     }
     return taskRepository.deleteOne(id);
 }
