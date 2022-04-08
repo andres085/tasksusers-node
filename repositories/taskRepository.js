@@ -13,12 +13,12 @@ module.exports.createOne = async (body) => {
 }
 
 module.exports.updateOne = async (id, body) => {
-    const task = await db.Task.findByPk(id);
-    return await task.update(body);
+    const task = await db.Task.update({title: body.title, userId: body.userId },{where: {id: id}});
+    return task;
 }
 
 module.exports.deleteOne = async (id) => {
-    const task = await db.Task.findByPk(id);
-    return await task.destroy();
+    const task = await db.Task.destroy({ where: { id: id } });
+    return task;
 }
 

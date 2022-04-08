@@ -39,7 +39,7 @@ module.exports.updateOne = async (req, res) => {
     const { id } = req.params;
     try {
         const task = await taskService.updateOne(id, req.body);
-        return res.json(new Success(task));
+        return res.status(200).send();
     } catch (error) {
         return res.status(error.code).send({
             error: error.message
@@ -50,10 +50,10 @@ module.exports.deleteOne = async (req, res) => {
     const { id } = req.params;
     try {
         await taskService.deleteOne(id);
-        return res.status(204);
+        return res.status(204).send();
     } catch (error) {
         return res.status(error.code).send({
             error: error.message
-        })
+        });
     }
 }
