@@ -27,13 +27,21 @@ module.exports.postOne = async (body) => {
 }
 
 module.exports.updateOne = async (id, body) => {
-    const user = await db.User.findByPk(id);
-    
-    return await user.update(body);
+    const user = await db.User.update({
+        userName: body.userName,
+        password: body.password,
+        email: body.email
+    }, {
+        where: {
+            id: id
+        }
+    });
+
+    return user;
 }
 
 module.exports.deleteOne = async (id) => {
-    const user = await db.User.findByPk(id);
+    const user = await db.User.destroy({where: {id:id}});
 
-    return await user.destroy();
+    return user;
 }
