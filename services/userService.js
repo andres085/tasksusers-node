@@ -1,5 +1,7 @@
+const bcrypt = require('bcrypt');
 const AppError = require('../errors/AppError');
 const userRepository = require('../repositories/userRepository');
+const createToken = require('../utils/createToken');
 
 module.exports.getAll = async () => {
     const users = await userRepository.getAll();
@@ -22,6 +24,17 @@ module.exports.getOne = async(id) => {
 
 module.exports.createOne = (body) => {
     return userRepository.postOne(body);
+}
+
+module.exports.userLogin = async (email, password) => {
+    const user = await userRepository.getByEmail(email);
+    const comparePassword = bcrypt.compareSync(password, user.password);
+    if (!comparePassword) {
+        throw new AppError('User not found', 404);
+    }
+    const token = createToken(user);
+    console.log(token);
+    return token;
 }
 
 module.exports.updateOne = async (id, body) => {

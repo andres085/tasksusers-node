@@ -33,6 +33,20 @@ module.exports.createOne = async (req, res) => {
     }
 }
 
+module.exports.login = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const token = await userService.userLogin(email, password);
+        return res.status(200).json({
+            token: token
+        })
+    } catch (error) {
+        return res.status(500).send({
+            error: 'Something went wrong'
+        })
+    }
+}
+
 module.exports.updateOne = async (req, res) => {
     const { id } = req.params;
     try {

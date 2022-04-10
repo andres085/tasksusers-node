@@ -22,6 +22,10 @@ module.exports.getOne = async (id) => {
     });
 }
 
+module.exports.getByEmail = async (email) => {
+    return await db.User.findOne({ where: { email: email } });
+}
+
 module.exports.postOne = async (body) => {
     return await db.User.create(body);
 }

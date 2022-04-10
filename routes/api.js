@@ -7,6 +7,7 @@ const {postTaskRequestValidation, updateTaskRequestValidation} = require('../mid
 router.get('/users', users.getAll);
 router.get('/users/:id', users.getOne);
 router.post('/users', postUserRequestValidation, users.createOne);
+router.post('/login', users.login);
 router.put('/users/:id', updateUserRequestValidation, users.updateOne);
 router.delete('/users/:id', users.deleteOne);
 
